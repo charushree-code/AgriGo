@@ -45,6 +45,8 @@ if($ret1){
         echo "Soething Went Wrong";
     }
 
+
+
 $ban="insert into bank values('$_POST[bank_id]','$_POST[bank]')";
 $ret2 = pg_query($dbconn, $ban);
 if($ret2){

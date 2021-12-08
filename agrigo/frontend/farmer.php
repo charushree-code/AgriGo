@@ -11,7 +11,22 @@
     <title>Hello, world!</title>
     <style>
 body {font-family: Arial, Helvetica, sans-serif;}
+body, html {
+  height: 100%;
+}
 
+.bg {
+  /* The image used */
+  background-image: url('images/BACKGROUND.png');
+
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 /* The Modal (background) */
 .modal {
   display: none; /* Hidden by default */
@@ -36,6 +51,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
   width: 80%;
 }
 
+
 /* The Close Button */
 .close {
   color: #aaaaaa;
@@ -58,7 +74,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
   
 <body>
     
-
+<div class='bg'>
 
 <?php include 'header1.php'?>
 <?php
@@ -134,62 +150,10 @@ else if(isset($_POST['new']) && $_POST['new']=='3'){
       
     echo '<script>alert("Crop updated succesfully")</script>';
       }}
-//query 1
-else if(isset($_POST['new']) && $_POST['new']=='4'){
 
-$lo="select farmer_name,village,crop_name from farmer,place,crop where crop.crop_name='$_POST[CRO]' and crop.FAR_ID=farmer.farmer_id and farmer.d_no=place.door_no";
-$count=0;
-$re = pg_query($dbconn, $lo);
-  if($re){
-    echo "Data saved Successfully";
-    while($row = pg_fetch_row($re)) {
-      echo '<hr>';
-    echo "<tr><td>".$row[0]."</td><td>".$row[1]."</td><td>".$row[2]."</td</tr>";
-    echo '<hr>';}}
-    else{
+      ?>
 
-    echo "Soething Went Wrong";
-}
-  
-  }
-//query2
-else if(isset($_POST['new']) && $_POST['new']=='5'){
-  $lo=" select pesticide,fertilizer,seed,quantity,sup_id,price from requirements ,offer where offer.farm_id='$farmer_id' and requirements.far_id='$farmer_id'";
-  $count=0;
-  $re = pg_query($dbconn, $lo);
-    if($re){
-      echo "Data saved Successfully";
-      while($row = pg_fetch_row($re)) {
-      
-      echo "<tr><td>".$row[0]."</td><td>".$row[1]."</td><td>".$row[2]."</td</tr>";}}
-      else{
-  
-      echo "Soething Went Wrong";
-  }
-    
-    }
-//query3
-else if(isset($_POST['new']) && $_POST['new']=='6'){
-  $lo="select price,quantity,sum(price*quantity) from buys where  buys.farm_id='$farmer_id'  group by quantity,price"; 
-  $li="select sum(buys.price*buys.quantity) as total from buys where  buys.farm_id='$farmer_id'";
-  
-  $re = pg_query($dbconn, $lo);
-    if($re){
-      echo "Data saved Successfully";
-      while($row = pg_fetch_row($re)) {
-      
-      echo "<tr><td>".$row[0]."</td><td>".$row[1]."</td><td>".$row[2]."</td</tr>";}}
-      else{
-  
-      echo "Soething Went Wrong";
-  }
-    
-    }
-  else{
-        echo '';
-      }?>
 
-<div>
 <button id="myBtn" onclick="get_element('myModal','myBtn')">ADD CROPS</button>
 <button id="myBtn1" onclick="get_element('myModal1','myBtn1')">DELETE CROPS</button>
 <button id="myBtn2" onclick="get_element('myModal2','myBtn2')">UPDATE CROPS</button>
@@ -207,29 +171,34 @@ else if(isset($_POST['new']) && $_POST['new']=='6'){
     <input type="hidden" name="new" value="1" />
     <div>
     <label class="fieldlabels">crop name:</label> <input type="text" name="CROP_NAME" placeholder="crop name" />
-</div><div>
-
+    </div>
+    <div>
     <label class="fieldlabels">crop type:</label> <input type="text" name="CROP_TYPE" placeholder="crop type" />
-</div><div>
+    </div>
+    <div>
     <label class="fieldlabels">crop qunatity:</label> <input type="numbers" name="quantity" placeholder="quantity" />
-</div><div>
+    </div>
+    <div>
     <label class="fieldlabels">WAREHOUSE_ID</label> <input type="number" name="warehouse" placeholder="0" />
-    </div><div>
+    </div>
+    <div>
     <label class="fieldlabels">LOCATION</label> <input type="text" name="location" placeholder="location" />
-    </div><div>
+    </div>
+    <div>
     <label class="fieldlabels">Owner</label> <input type="text" name="owner" placeholder="owner of warehouse" />
-    </div><div>
+    </div>
+    <div>
     <label class="fieldlabels">CAPACITY</label> <input type="number" name="capacity" placeholder="capacity" />
-    </div><div>
+    </div>
+    <div>
     <input type="submit"  />
-</div>
+    </div>
   </form>
 </div>
+
   </div>
 </div>
-</div>
 
-</div>
   
     <!-- Optional JavaScript; choose one of the two! -->
 
@@ -241,8 +210,7 @@ else if(isset($_POST['new']) && $_POST['new']=='6'){
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
     -->
-    <div>   
-</div>
+
 <!-- The Modal -->
 <div id="myModal1" class="modal">
 
@@ -258,11 +226,9 @@ else if(isset($_POST['new']) && $_POST['new']=='6'){
     <input type="submit"  />
   </form></div>
   </div>
-</div>
-</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </div>
-</div>
+
 
 
 
@@ -285,9 +251,7 @@ else if(isset($_POST['new']) && $_POST['new']=='6'){
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   </div>
 </div>
-</div>
-</div>
-</div>
+
 
 <script>
 // Get the modal
@@ -326,29 +290,97 @@ window.onclick = function(event) {
     <label class="fieldlabels">crop name:</label> <input type="text" name="CRO" placeholder="crop name" />
     <input type="submit"  />
   </form></div>
-  <div>
+  
+    <?php 
+    if(isset($_POST['new']) && $_POST['new']=='4'){
+
+$lo="select farmer_name,village,crop_name from farmer,place,crop where crop.crop_name='$_POST[CRO]' and crop.FAR_ID=farmer.farmer_id and farmer.d_no=place.door_no";
+$count=0;
+$re = pg_query($dbconn, $lo);
+  if($re){
+    
+    echo "<table>"; // start a table tag in the HTML
+   
+    while($row = pg_fetch_row($re)){   //Creates a loop to loop through results
+    echo "<tr><td>" . $row[0] . "</td><td>" . $row[1] . "</td><td>" . $row[2] . "</td></tr>";  //$row['index'] the index here is a field name
+    }
+    
+    echo "</table>";
+   
+
+
+  
+  }
+  else{
+  
+    echo '<script>alert("ERROR")</script>';
+}}?>
+<div>
 <h1> want to know List fertilizers and pesticides purchased with cost.</h1>
 <form action='' method=post> 
     <input type="hidden" name="new" value="5" />
     <input type="submit"  />
   </form></div>
-<div>  <h1>Total price you  get for all crops you  produced.	</h1>
+  <?php
+  if(isset($_POST['new']) && $_POST['new']=='5'){
+  $lo=" select pesticide,fertilizer,seed,quantity,sup_id,price from requirements ,offer where offer.farm_id='$farmer_id' and requirements.far_id='$farmer_id'";
+  $count=0;
+  $re = pg_query($dbconn, $lo);
+    if($re){
+     
+    
+      echo "<table>"; // start a table tag in the HTML
+   
+      while($row = pg_fetch_row($re)){   //Creates a loop to loop through results
+      echo "<tr><td>" . $row[0] . "</td><td>" . $row[1] . "</td><td>" . $row[2] . "</td><td>" . $row[3] . "</td><td>" . $row[4] . "</td><td>" . $row[5] . "</td></tr>";  //$row['index'] the index here is a field name
+      }
+      
+      echo "</table>";
+      }
+      else{
+  
+      echo "Soething Went Wrong";
+  }}?>
+  <div>
+ <h1>Total price you  get for all crops you  produced.	</h1>
 <form action='' method=post> 
     <input type="hidden" name="new" value="6" />
     <input type="submit"  />
   </form></div>
+
+  <?php
+  if(isset($_POST['new']) && $_POST['new']=='6'){
+  $lo="select price,quantity,sum(price*quantity) from buys where  buys.farm_id='$farmer_id'  group by quantity,price"; 
+  $li="select sum(buys.price*buys.quantity) as total from buys where  buys.farm_id='$farmer_id'";
+  
+  $re = pg_query($dbconn, $lo);
+    if($re){
+     
+      echo "<table>"; // start a table tag in the HTML
+   
+      while($row = pg_fetch_row($re)){   //Creates a loop to loop through results
+      echo "<tr><td>" . $row[0] . "</td><td>" . $row[1] . "</td></tr>";  //$row['index'] the index here is a field name
+      }
+      
+      echo "</table>";
+      
+    }
+    $re = pg_query($dbconn, $li);
+    if($re){
+     
+      echo "<table>"; // start a table tag in the HTML
+   
+      while($row = pg_fetch_row($re)){   //Creates a loop to loop through results
+      echo "<tr><td>" . $row[0] . "</td></tr>";  //$row['index'] the index here is a field name
+      }
+      
+      echo "</table>";
+      
+    }
+  }
+    
+    ?>
+    </div>
+
   </body>
 </html>
-
-
-
-<?php
-// PHP program to pop an alert
-// message box on the screen
-  
-// Display the alert box 
-
-  
-?>
-
-

@@ -1,4 +1,4 @@
-1
+
 -- table creation --
 drop database agrigo;
 create database agrigo;
